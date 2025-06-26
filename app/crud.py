@@ -4,7 +4,6 @@ from sqlalchemy.future import select
 from sqlalchemy import update, delete
 from . import models, schemas
 
-# Создание записи
 async def create_entry(db: AsyncSession, entry: schemas.EntryCreate) -> models.Entry:
     db_entry = models.Entry(**entry.dict())
     db.add(db_entry)
@@ -12,17 +11,14 @@ async def create_entry(db: AsyncSession, entry: schemas.EntryCreate) -> models.E
     await db.refresh(db_entry)
     return db_entry
 
-# Получение записи по ID
 async def get_entry(db: AsyncSession, entry_id: int) -> Optional[models.Entry]:
     result = await db.execute(select(models.Entry).where(models.Entry.id == entry_id))
     return result.scalars().first()
 
-# Получение всех записей
 async def get_entries(db: AsyncSession) -> List[models.Entry]:
     result = await db.execute(select(models.Entry))
     return result.scalars().all()
 
-# Обновление записи
 async def update_entry(db: AsyncSession, entry_id: int, entry_update: schemas.EntryUpdate) -> Optional[models.Entry]:
     result = await db.execute(select(models.Entry).where(models.Entry.id == entry_id))
     db_entry = result.scalars().first()
@@ -35,7 +31,6 @@ async def update_entry(db: AsyncSession, entry_id: int, entry_update: schemas.En
     await db.refresh(db_entry)
     return db_entry
 
-# Удаление записи
 async def delete_entry(db: AsyncSession, entry_id: int) -> bool:
     result = await db.execute(select(models.Entry).where(models.Entry.id == entry_id))
     db_entry = result.scalars().first()
@@ -45,7 +40,6 @@ async def delete_entry(db: AsyncSession, entry_id: int) -> bool:
     await db.commit()
     return True
 
-# Пометка записи как выполненной
 async def mark_as_done(db: AsyncSession, entry_id: int) -> Optional[models.Entry]:
     result = await db.execute(select(models.Entry).where(models.Entry.id == entry_id))
     db_entry = result.scalars().first()
