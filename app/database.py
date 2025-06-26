@@ -3,7 +3,6 @@ from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
 import os
 
-# Загружаем переменные окружения из файла .env
 load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL")  # например: "postgresql://user:password@localhost/dbname"
