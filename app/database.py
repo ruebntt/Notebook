@@ -5,12 +5,12 @@ import os
 
 load_dotenv()
 
-DATABASE_URL = os.getenv("DATABASE_URL")  # например: "postgresql://user:password@localhost/dbname"
+DATABASE_URL = os.getenv("postgresql+asyncpg://user:password@localhost:5432/daily_planner")  
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# Создаем все таблицы в базе данных (если еще не созданы)
+
 def init_db():
     from .models import Base
     Base.metadata.create_all(bind=engine)
