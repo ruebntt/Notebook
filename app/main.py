@@ -6,7 +6,7 @@ import models
 import schemas
 import crud
 
-DATABASE_URL = "postgresql+asyncpg://user:password@localhost:5432/dailyplanner"
+DATABASE_URL = "postgresql+asyncpg://user:password@localhost:5432/daily_planner"
 
 engine = create_async_engine(DATABASE_URL, echo=True)
 async_session = sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
